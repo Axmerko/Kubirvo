@@ -1,0 +1,347 @@
+﻿@model KubirovackaAPI.Areas.Report.Models.ProofOfOriginDTO
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/html">
+<head>
+    <style>
+        table, tr, td, th, tbody, thead, tfoot {
+            page-break-inside: avoid !important;
+        }
+        table {
+            width: 100%;
+            border-spacing: 0;
+            border-collapse: collapse;
+            margin: 0;
+            padding: 0;
+        }
+        .row {
+            padding: 5px;
+        }
+        .item {
+            display: inline-block;
+            vertical-align: top;
+            width: 20%
+        }
+        .item.text {
+            font-weight: bold;
+            width: 70%;
+            padding-left: 5px;
+        }
+        .address {
+            min-height: 60px
+        }
+        .row.multi .item {
+            display: block;
+            width: 100%;
+            margin-bottom: 3px;
+        }
+        td {
+            border: 1px solid black;
+            vertical-align: top;
+        }
+        .cell {
+            padding: 3px 5px;
+        }
+        .cell.number {
+            text-align: right;
+        }
+        td.header {
+            border: none;
+        }
+        td.header .cell {
+            font-weight: bold;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<div style="font-weight: bold; font-size: 25px; width: 50%; display: inline-block">Doklad o původu dřeva</div>
+<div style="font-weight: bold; font-size: 20px;width: 40%; display: inline-block; text-align: right">Číslo dokladu: @Model.DocNumber</div>
+<table style="margin-top: 10px;">
+    <tr>
+        <td style="width: 50%">
+            <div class="row address">
+                <div class="item">Dodavatel:</div>
+                <div class="item text">
+                    @Model.SupplierName
+                    @if (Model.SupplierStreetAndNumber.Length > 0)
+                    {
+                        <br>
+                        @Model.SupplierStreetAndNumber
+                    }
+                    @if (Model.SupplierCity.Length > 0)
+                    {
+                        <br>
+                        @Model.SupplierCity
+                        if (Model.SupplierZipCode.Length > 0)
+                        {
+                            <text>, </text>
+                            @Model.SupplierZipCode
+                        }
+                    }
+                    @if (Model.SupplierCountry.Length > 0)
+                    {
+                        <br>
+                        @Model.SupplierCountry
+                    }
+                </div>
+            </div>
+            <div class="row">
+                <div class="item">IČ DPH:</div> 
+                <div class="item text">@Model.SupplierVatNumber</div>
+            </div>
+        </td>
+        <td style="width: 50%">
+            <div class="row address">
+                <div class="item">Odběratel:</div>
+                <div class="item text">
+                    @Model.CustomerName
+                    @if (Model.CustomerStreetAndNumber.Length > 0)
+                    {
+                        <br>
+                        @Model.CustomerStreetAndNumber
+                    }
+                    @if (Model.CustomerCity.Length > 0)
+                    {
+                        <br>
+                        @Model.CustomerCity
+                        if (Model.CustomerZipCode.Length > 0)
+                        {
+                            <text>, </text>
+                            @Model.CustomerZipCode
+                        }
+                    }
+                    @if (Model.CustomerCountry.Length > 0)
+                    {
+                        <br>
+                        @Model.CustomerCountry
+                    }
+                </div>
+            </div>
+            <div class="row">
+                <div class="item">IČ DPH:</div> 
+                <div class="item text">@Model.CustomerVatNumber</div>
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td style="width: 50%">
+            <div class="row">
+                <div class="item">Přepravce:</div>
+                <div class="item text">
+                    @Model.ShipperName
+                    @if (Model.ShipperStreetAndNumber.Length > 0)
+                    {
+                        <br>
+                        @Model.ShipperStreetAndNumber
+                    }
+                    @if (Model.ShipperCity.Length > 0)
+                    {
+                        <br>
+                        @Model.ShipperCity
+                        if (Model.ShipperZipCode.Length > 0)
+                        {
+                            <text>, </text>
+                            @Model.ShipperZipCode
+                        }
+                    }
+                    @if (Model.ShipperCountry.Length > 0)
+                    {
+                        <br>
+                        @Model.ShipperCountry
+                    }
+                </div>
+            </div>
+            <div class="row">
+                <div class="item">IČ DPH:</div> 
+                <div class="item text">@Model.ShipperVatNumber</div>
+            </div>
+            <div class="row">
+                <div class="item">Řidič:</div>
+                <div class="item text">@Model.DriverName</div>
+            </div>
+        </td>
+        <td style="width: 50%;">
+            <div class="row">
+                <div class="item">Číslo vagónu:</div> 
+                <div class="item text">@Model.WagonNumber</div>
+            </div>
+            <div class="row">
+                <div class="item">Dopravní prostředek:</div> 
+                <div class="item text">@Model.Vehicle</div>
+            </div>
+            <div class="row">
+                <div class="item">SPZ:</div> 
+                <div class="item text">@Model.LicensePlate</div>
+            </div>
+        </td>
+    </tr>
+</table>
+<table style="margin-top: -1px">
+    <tr>
+        <td style="width:25%;">
+            <div class="row">
+                <span class="item">Odkud:</span> 
+                <div class="item text">@Model.AddressFrom</div>
+            </div>
+            <div class="row">
+                <div class="item">Kam:</div> 
+                <div class="item text">@Model.AddressTo</div>
+            </div>
+        </td>
+        <td style="width:25%;">
+            <div class="row multi">
+                <div class="item">Datum přepravy:</div> 
+                <div class="item text full">@Model.DateOfShipment</div>
+            </div>
+        </td>
+        <td style="width:25%;">
+            <div class="row multi">
+                <div class="item">Čas nakládky:</div> 
+                <div class="item text full">@Model.DateOfLoading</div>
+            </div>
+        </td>
+        <td style="width:25%;">
+            <div class="row multi">
+                <div class="item">Identifikační údaje cejchy:</div>
+                <div class="item text full">@Model.BrandIdentificationData</div>
+            </div>
+        </td>
+    </tr>
+</table>
+<table style="margin-top: -1px">
+    <tr>
+        <td style="width:50%;">
+            <div class="row">
+                <div class="item" style="width: auto">Dřevina:</div> 
+                <div class="item text" style="width: auto">@Model.Wood</div>
+            </div>
+        </td>
+        <td style="width:50%;">
+            <div class="row">
+                <div class="item" style="width: auto">Kvalitativní třída:</div> 
+                <div class="item text" style="width: auto">@Model.QualitativeClass</div>
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td style="width:50%;">
+            <div class="row">
+                <div class="item" style="width: auto">Celkový objem v prm:</div> 
+                <div class="item text" style="width: auto">@Model.TotalVolumeInPrm</div>
+            </div>
+        </td>
+        <td style="width:50%;">
+            <div class="row">
+                <div class="item" style="width: auto">Celkový objem v m³:</div> 
+                <div class="item text" style="width: auto">@Model.TotalVolume</div>
+            </div>
+        </td>
+    </tr>
+</table>
+<table style="margin-top: 15px;">
+    <tr>
+        <td class="header" style="width:5%">    
+            <div class="cell">#</div>
+        </td>
+        <td class="header" style="width:21%">
+            <div class="cell">Dřevina</div>
+        </td>
+        <td class="header" style="width:21%">
+            <div class="cell">Sortiment</div>
+        </td>
+        <td class="header" style="width:21%">
+            <div class="cell">Průměr uprostřed (cm)</div>
+        </td>
+        <td class="header" style="width:21%">
+            <div class="cell"> Délka (m)</div>
+        </td>
+        <td class="header" style="width:10%;">
+            <div class="cell">Objem m³</div>
+        </td>
+    </tr>
+    @foreach (var item in Model.WoodLogs)
+    {
+        <tr>
+            <td style="width:5%">    
+                <div class="cell number">@item.Number</div>
+            </td>
+            <td style="width:21%">
+                <div class="cell">@item.Wood</div>
+            </td>
+            <td style="width:21%">
+                <div class="cell">@item.Sortiment</div>
+            </td>
+            <td style="width:21%">
+                <div class="cell number">@item.Diameter</div>
+            </td>
+            <td style="width:21%">
+                <div class="cell number">@item.Length</div>
+            </td>
+            <td style="width:10%;">
+                <div class="cell number">@item.Volume.ToString("F2")</div>
+            </td>
+        </tr>
+    }
+        <tr>
+            <td colspan="5">Celkem:</td>
+            <td><div class="cell number">@Model.TotalVolume</div></td>
+        </tr>
+</table>
+<table style="margin-top: 15px">
+    <tr>
+        <td style="width:25%;">
+            <div class="row">
+                <div class="item" style="width: auto">Vydal:</div> 
+                <div class="item text" style="width: auto">@Model.IssuedBy</div>
+            </div>
+        </td>
+        <td style="width:25%;">
+            <div class="row">
+                <div class="item" style="width: auto">Datum:</div> 
+                <div class="item text" style="width: auto">@(Model.IssuedDate.HasValue ? Model.IssuedDate.GetValueOrDefault().Date.ToShortDateString() : "")
+                </div>
+            </div>
+        </td>
+        <td style="width:25%;">
+            <div class="row">
+                <div class="item" style="width: auto">Čas:</div> 
+                <div class="item text" style="width: auto">@Model.IssuedTime</div>
+            </div>
+        </td>
+        <td style="width:25%;">
+            <div class="row">
+                <div class="item" style="width: auto">Podpis:</div> 
+                <div class="item text" style="width: auto"></div>
+            </div>
+        </td>
+    </tr>
+        <tr>
+            <td style="width:25%;">
+                <div class="row">
+                    <div class="item" style="width: auto">Převzal:</div> 
+                    <div class="item text" style="width: auto">@Model.TookOverBy</div>
+                </div>
+            </td>
+            <td style="width:25%;">
+                <div class="row">
+                    <div class="item" style="width: auto">Datum:</div> 
+                    <div class="item text" style="width: auto">@(Model.TookOverDate != null ? Model.TookOverDate.GetValueOrDefault().ToShortDateString() : "") </div>
+                </div>
+            </td>
+            <td style="width:25%;">
+                <div class="row">
+                    <div class="item" style="width: auto">Čas:</div> 
+                    <div class="item text" style="width: auto">@Model.TookOverTime</div>
+                </div>
+            </td>
+            <td style="width:25%;">
+                <div class="row">
+                    <div class="item" style="width: auto">Podpis:</div> 
+                    <div class="item text" style="width: auto"></div>
+                </div>
+            </td>
+        </tr>
+</table>
+</body>
+</html>
